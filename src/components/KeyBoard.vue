@@ -4,6 +4,7 @@ import { mapWritableState, mapActions } from "pinia";
 import { useHangmanStore } from "../stores/hangman";
 import CardLetter from "./CardLetter.vue";
 import HangmanFigure from "./HangmanFigure.vue";
+import Swal from "sweetalert2/dist/sweetalert2.js";
 
 export default {
   name: "KeyBoard",
@@ -14,6 +15,7 @@ export default {
       correctWord: [],
       wrongWord: [],
       selectLetter: "",
+      isPlayAgain: false,
       // count: 1,
     };
   },
@@ -27,15 +29,18 @@ export default {
     ]),
   },
   methods: {
+    ...mapActions(useHangmanStore, ["generateWord"]),
     changeArray() {
       let count = 0;
 
       console.log(this.wrongCount);
 
-      if (this.wrongCount !== 4) {
-        const letter = this.chosenWord.split("");
-        const check = letter.includes(this.selectLetter);
+      const letter = localStorage.getItem("chosenWord").split("");
 
+      if (this.wrongCount !== 4) {
+        // const letter = this.chosenWord.split("");
+        const letter = localStorage.getItem("chosenWord").split("");
+        const check = letter.includes(this.selectLetter);
         if (check) {
           if (!this.correctWord.includes(this.selectLetter)) {
             this.correctWord.push(this.selectLetter);
@@ -54,6 +59,31 @@ export default {
           });
           this.data = [];
           this.data = newArr;
+
+          if (this.data.join("") === letter.join("")) {
+            Swal.fire({
+              title: "Congratulation!",
+              text: "You win this game",
+              icon: "success",
+              showCancelButton: true,
+              confirmButtonColor: "#3085d6",
+              cancelButtonColor: "#d33",
+              confirmButtonText: "Play Again",
+            }).then((result) => {
+              if (result.isConfirmed) {
+                // Swal.fire("Deleted!", "Your file has been deleted.", "success");
+                this.generateWord();
+                this.playAgain();
+                // this.isPlayAgain = true;
+                // this.wrongCount = 0;
+                // this.correctWord = [];
+                // this.data = [];
+                // const newArr = letter.map((el) => (el = ""));
+                // this.data = newArr;
+                // this.$router.push({ path: "/play" });
+              }
+            });
+          }
         } else {
           // console.log(this.data);
           console.log("salah");
@@ -61,26 +91,74 @@ export default {
           this.selectLetter = "";
           this.wrongCount++;
         }
-      } else {
+      } else if (this.wrongCount === 4) {
         console.log("kalaaahh");
+
+        Swal.fire({
+          title: "You Lose",
+          // text: "Try again",
+          icon: "error",
+          showCancelButton: true,
+          confirmButtonColor: "#3085d6",
+          cancelButtonColor: "#d33",
+          confirmButtonText: "Try again?",
+        }).then((result) => {
+          if (result.isConfirmed) {
+            // Swal.fire("Deleted!", "Your file has been deleted.", "success");
+            // this.generateWord();
+            console.log("masuk");
+            this.wrongCount = 0;
+            this.correctWord = [];
+            this.changeArray();
+            const newArr = letter.map((el) => (el = ""));
+            this.data = newArr;
+          }
+        });
       }
+    },
+
+    playAgain() {
+      this.wrongCount = 0;
+      this.correctWord = [];
+      this.data = [];
+      // const newArr = letter.map((el) => (el = ""));
+      // this.data = newArr;
+      this.$router.push({ path: "/play" });
+      const newWord = localStorage.getItem("chosenWord").split("");
+      const newArr = newWord.map((el) => (el = ""));
+      this.data = newArr;
     },
 
     checkTrueOrFalse(letter) {
       console.log(letter);
       this.selectLetter = letter;
       this.changeArray();
+      if (this.correctWord.length === 0) {
+        const newArr = letter.map((el) => (el = ""));
+        this.data = newArr;
+      }
     },
   },
 
   created() {
-    const letter = this.chosenWord.split("");
+    // const letter = this.chosenWord.split("");
+    console.log(this.data, "dataa");
+    this.correctWord = [];
+    const letter = localStorage.getItem("chosenWord").split("");
     console.log(letter);
+
     if (this.correctWord.length === 0) {
       const newArr = letter.map((el) => (el = ""));
       this.data = newArr;
     }
   },
+
+  // mounted() {
+  //   const letter = localStorage.getItem("chosenWord").split("");
+  //   const newArr = letter.map((el) => (el = ""));
+  //   this.data = newArr;
+  //   this.changeArray();
+  // },
 };
 </script>
 

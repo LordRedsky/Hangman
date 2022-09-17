@@ -41,6 +41,7 @@ export const useHangmanStore = defineStore({
     generateWord() {
       const index = Math.floor(Math.random() * this.words.length)
       this.chosenWord = this.words[index].name
+      localStorage.setItem('chosenWord', this.chosenWord)
     }
   }
 })
