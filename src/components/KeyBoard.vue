@@ -3,25 +3,42 @@ import CardBlind from "./CardBlind.vue";
 import { mapWritableState, mapActions } from "pinia";
 import { useHangmanStore } from "../stores/hangman";
 import CardLetter from "./CardLetter.vue";
+import HangmanFigure from "./HangmanFigure.vue";
 
 export default {
   name: "KeyBoard",
-  components: { CardBlind, CardLetter },
+  components: { CardBlind, CardLetter, HangmanFigure },
   data: () => {
     return {
-      quiz: "Indonesia",
+      // chosenWord: "Indonesia",
       data: [],
+      correctWord: [],
+      selectLetter: "",
     };
   },
   computed: {
-    ...mapWritableState(useHangmanStore, ["consonants", "vocals", "words"]),
+    ...mapWritableState(useHangmanStore, ["consonants", "vocals", "words", "chosenWord"]),
   },
   methods: {
-    // ...mapActions(useHangmanStore, [''])
     changeArray() {
-      for (const char of this.quiz) {
-        this.data.push(char);
+      const letter = this.chosenWord.split("");
+      console.log(letter, "1");
+
+      if (this.correctWord.length === 0) {
+        letter.map((e) => {
+          e = "";
+        });
+
+        console.log(letter, "2");
+        this.data = letter;
+      } else {
+        const check = this.chosenWord.includes(this.selectLetter);
+        console.log(check, "<<<<Check");
       }
+    },
+
+    checkTrueOrFalse(letter) {
+      this.selectLetter = letter;
     },
   },
 
@@ -33,21 +50,24 @@ export default {
 
 <template>
   <div>
+    <!-- <h2>{{ data }}</h2> -->
     <div class="blind">
       <div v-for="(char, i) of data" :key="i" class="blind__cards">
-        <CardBlind :data="char" :length="quiz.length" />
+        <CardBlind :data="char" />
       </div>
     </div>
     <article>
       <div class="letter">
         <div v-for="(vocal, i) of vocals" :key="i" class="letter__vocal">
-          <CardLetter :data="vocal" />
+          <CardLetter @click="checkTrueOrFalse(vocal)" :data="vocal" />
         </div>
       </div>
 
+      <HangmanFigure />
+
       <div class="letter consonants">
         <div v-for="(consonant, i) of consonants" :key="i" class="letter__consonant">
-          <CardLetter :data="consonant" />
+          <CardLetter @click="checkTrueOrFalse(consonant)" :data="consonant" />
         </div>
       </div>
     </article>
@@ -62,12 +82,12 @@ article {
   /* background-color: red; */
 }
 
-.blind{
-    /* position: absolute; */
-    display: flex;
-    justify-content: center;
-    gap: 5px;
-    /* align-items: flex-end; */
+.blind {
+  /* position: absolute; */
+  display: flex;
+  justify-content: center;
+  gap: 5px;
+  /* align-items: flex-end; */
 }
 .letter {
   display: flex;

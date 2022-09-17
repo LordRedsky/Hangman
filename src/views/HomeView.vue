@@ -1,16 +1,18 @@
 <script>
 import KeyBoard from "../components/KeyBoard.vue";
+import Header from "../components/Header.vue";
+
 export default {
   name: "HomePage",
-  components: { KeyBoard },
+  components: { KeyBoard, Header },
 };
 </script>
 
 <template>
   <main>
-    <h1>Hangman Game</h1>
+    <Header />
     <div class="table">
-      <KeyBoard class="table-game"/>
+      <KeyBoard class="table-game" />
     </div>
   </main>
 </template>
@@ -36,6 +38,6 @@ main {
 }
 
 .table-game {
-/* background-color: red; */
+  /* background-color: red; */
 }
 </style>

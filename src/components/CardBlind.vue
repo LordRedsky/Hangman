@@ -11,6 +11,7 @@ export default {
     <div class="card-wrapper">
       <div class="card">
         <span>{{data.toUpperCase()}}</span>
+        <!-- <span></span> -->
       </div>
     </div>
   <!-- </article> -->
@@ -28,6 +29,7 @@ export default {
   /* padding: 20px; */
   border-radius: 10px;
   background-color: #fed945;
+  cursor: pointer;
 }
 .card {
   /* width: 100%; */
@@ -40,6 +42,7 @@ export default {
   border-radius: 5px;
   align-items: center;
   color: #7e0101;
+
 
   font-family: "Acme", sans-serif;
   font-size: 1.5rem;
