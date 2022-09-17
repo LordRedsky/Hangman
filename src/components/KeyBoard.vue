@@ -10,9 +10,9 @@ export default {
   components: { CardBlind, CardLetter, HangmanFigure },
   data: () => {
     return {
-      // chosenWord: "Indonesia",
       data: [],
       correctWord: [],
+      wrongWord: [],
       selectLetter: "",
     };
   },
@@ -21,36 +21,54 @@ export default {
   },
   methods: {
     changeArray() {
+      this.data = [];
       const letter = this.chosenWord.split("");
-      console.log(letter, "1");
+      const check = letter.includes(this.selectLetter);
 
-      if (this.correctWord.length === 0) {
-        letter.map((e) => {
-          e = "";
+      if (check) {
+        if (!this.correctWord.includes(this.selectLetter)) {
+          this.correctWord.push(this.selectLetter);
+          console.log(this.correctWord, "correct");
+          this.selectLetter = "";
+        }
+
+        const newArr = [];
+
+        letter.forEach((el) => {
+          if (this.correctWord.includes(el)) {
+            newArr.push(el);
+          } else {
+            newArr.push("");
+          }
         });
 
-        console.log(letter, "2");
-        this.data = letter;
+        this.data = newArr;
       } else {
-        const check = this.chosenWord.includes(this.selectLetter);
-        console.log(check, "<<<<Check");
+        this.wrongWord.push(this.selectLetter);
+        this.selectLetter = "";
       }
     },
 
     checkTrueOrFalse(letter) {
+      console.log(letter);
       this.selectLetter = letter;
+      this.changeArray();
     },
   },
 
   created() {
-    this.changeArray();
+    const letter = this.chosenWord.split("");
+    console.log(letter);
+    if (this.correctWord.length === 0) {
+      const newArr = letter.map((el) => (el = ""));
+      this.data = newArr;
+    }
   },
 };
 </script>
 
 <template>
   <div>
-    <!-- <h2>{{ data }}</h2> -->
     <div class="blind">
       <div v-for="(char, i) of data" :key="i" class="blind__cards">
         <CardBlind :data="char" />

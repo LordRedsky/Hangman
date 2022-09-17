@@ -1,19 +1,19 @@
 <script>
 export default {
   name: "CardBlind",
-  props: ["data"]
+  props: ["data"],
 };
 </script>
 
 <template>
   <!-- Set Card -->
   <!-- <article> -->
-    <div class="card-wrapper">
-      <div class="card">
-        <span>{{data.toUpperCase()}}</span>
-        <!-- <span></span> -->
-      </div>
+  <div class="card-wrapper">
+    <div class="card">
+      <span>{{ data.toUpperCase() }}</span>
+      <!-- <span></span> -->
     </div>
+  </div>
   <!-- </article> -->
 </template>
 
@@ -42,7 +42,6 @@ export default {
   border-radius: 5px;
   align-items: center;
   color: #7e0101;
-
 
   font-family: "Acme", sans-serif;
   font-size: 1.5rem;
