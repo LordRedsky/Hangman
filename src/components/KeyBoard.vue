@@ -14,38 +14,55 @@ export default {
       correctWord: [],
       wrongWord: [],
       selectLetter: "",
+      // count: 1,
     };
   },
   computed: {
-    ...mapWritableState(useHangmanStore, ["consonants", "vocals", "words", "chosenWord"]),
+    ...mapWritableState(useHangmanStore, [
+      "consonants",
+      "vocals",
+      "words",
+      "chosenWord",
+      "wrongCount",
+    ]),
   },
   methods: {
     changeArray() {
-      this.data = [];
-      const letter = this.chosenWord.split("");
-      const check = letter.includes(this.selectLetter);
+      let count = 0;
 
-      if (check) {
-        if (!this.correctWord.includes(this.selectLetter)) {
-          this.correctWord.push(this.selectLetter);
-          console.log(this.correctWord, "correct");
-          this.selectLetter = "";
-        }
+      console.log(this.wrongCount);
 
-        const newArr = [];
+      if (this.wrongCount !== 4) {
+        const letter = this.chosenWord.split("");
+        const check = letter.includes(this.selectLetter);
 
-        letter.forEach((el) => {
-          if (this.correctWord.includes(el)) {
-            newArr.push(el);
-          } else {
-            newArr.push("");
+        if (check) {
+          if (!this.correctWord.includes(this.selectLetter)) {
+            this.correctWord.push(this.selectLetter);
+            console.log(this.correctWord, "correct");
+            this.selectLetter = "";
           }
-        });
 
-        this.data = newArr;
+          const newArr = [];
+
+          letter.forEach((el) => {
+            if (this.correctWord.includes(el)) {
+              newArr.push(el);
+            } else {
+              newArr.push("");
+            }
+          });
+          this.data = [];
+          this.data = newArr;
+        } else {
+          // console.log(this.data);
+          console.log("salah");
+          this.wrongWord.push(this.selectLetter);
+          this.selectLetter = "";
+          this.wrongCount++;
+        }
       } else {
-        this.wrongWord.push(this.selectLetter);
-        this.selectLetter = "";
+        console.log("kalaaahh");
       }
     },
 
