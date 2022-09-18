@@ -26,6 +26,7 @@ export default {
       "words",
       "chosenWord",
       "wrongCount",
+      "isHangmanShow",
     ]),
   },
   methods: {
@@ -38,7 +39,6 @@ export default {
       const letter = localStorage.getItem("chosenWord").split("");
 
       if (this.wrongCount !== 4) {
-        // const letter = this.chosenWord.split("");
         const letter = localStorage.getItem("chosenWord").split("");
         const check = letter.includes(this.selectLetter);
         if (check) {
@@ -71,32 +71,23 @@ export default {
               confirmButtonText: "Play Again",
             }).then((result) => {
               if (result.isConfirmed) {
-                // Swal.fire("Deleted!", "Your file has been deleted.", "success");
                 this.generateWord();
                 this.playAgain();
-                // this.isPlayAgain = true;
-                // this.wrongCount = 0;
-                // this.correctWord = [];
-                // this.data = [];
-                // const newArr = letter.map((el) => (el = ""));
-                // this.data = newArr;
-                // this.$router.push({ path: "/play" });
               }
             });
           }
         } else {
-          // console.log(this.data);
           console.log("salah");
           this.wrongWord.push(this.selectLetter);
           this.selectLetter = "";
           this.wrongCount++;
+          this.isHangmanShow = true;
         }
       } else if (this.wrongCount === 4) {
         console.log("kalaaahh");
-
+        this.wrongCount++;
         Swal.fire({
           title: "You Lose",
-          // text: "Try again",
           icon: "error",
           showCancelButton: true,
           confirmButtonColor: "#3085d6",
@@ -104,8 +95,6 @@ export default {
           confirmButtonText: "Try again?",
         }).then((result) => {
           if (result.isConfirmed) {
-            // Swal.fire("Deleted!", "Your file has been deleted.", "success");
-            // this.generateWord();
             console.log("masuk");
             this.wrongCount = 0;
             this.correctWord = [];
@@ -121,18 +110,19 @@ export default {
       this.wrongCount = 0;
       this.correctWord = [];
       this.data = [];
-      // const newArr = letter.map((el) => (el = ""));
-      // this.data = newArr;
       this.$router.push({ path: "/play" });
       const newWord = localStorage.getItem("chosenWord").split("");
       const newArr = newWord.map((el) => (el = ""));
       this.data = newArr;
     },
 
-    checkTrueOrFalse(letter) {
-      console.log(letter);
-      this.selectLetter = letter;
+    checkTrueOrFalse(input) {
+      console.log(input);
+      this.selectLetter = input;
       this.changeArray();
+
+      const letter = localStorage.getItem("chosenWord").split("");
+
       if (this.correctWord.length === 0) {
         const newArr = letter.map((el) => (el = ""));
         this.data = newArr;
@@ -141,8 +131,6 @@ export default {
   },
 
   created() {
-    // const letter = this.chosenWord.split("");
-    console.log(this.data, "dataa");
     this.correctWord = [];
     const letter = localStorage.getItem("chosenWord").split("");
     console.log(letter);
@@ -152,13 +140,6 @@ export default {
       this.data = newArr;
     }
   },
-
-  // mounted() {
-  //   const letter = localStorage.getItem("chosenWord").split("");
-  //   const newArr = letter.map((el) => (el = ""));
-  //   this.data = newArr;
-  //   this.changeArray();
-  // },
 };
 </script>
 

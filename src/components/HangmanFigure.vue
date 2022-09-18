@@ -1,6 +1,22 @@
 <script>
+import { mapActions, mapWritableState } from "pinia";
+import { useHangmanStore } from "../stores/hangman";
+
 export default {
   name: "HangmanFigure",
+  computed: {
+    ...mapWritableState(useHangmanStore, ["isHangmanShow", "wrongCount"]),
+  },
+
+  methods: {
+    showLine(input) {
+      if (this.wrongCount >= input) {
+        return true;
+      } else {
+        return false;
+      }
+    },
+  },
 };
 </script>
 
@@ -13,21 +29,21 @@ export default {
       <line x1="20" y1="230" x2="100" y2="230" />
 
       <!-- Rope -->
-      <line x1="150" y1="20" x2="150" y2="50" />
+      <line v-if="showLine(1)" x1="150" y1="20" x2="150" y2="50" />
 
       <!-- Head -->
-      <circle cx="150" cy="70" r="20" />
+      <circle v-if="showLine(2)" cx="150" cy="70" r="20" />
 
       <!-- Body -->
-      <line x1="150" y1="90" x2="150" y2="150" />
-      
+      <line v-if="showLine(3)" x1="150" y1="90" x2="150" y2="150" />
+
       <!-- Arms -->
-      <line x1="150" y1="120" x2="130" y2="100" />
-      <line x1="150" y1="120" x2="170" y2="100" />
-      
+      <line v-if="showLine(4)" x1="150" y1="120" x2="130" y2="100" />
+      <line v-if="showLine(4)" x1="150" y1="120" x2="170" y2="100" />
+
       <!-- Legs -->
-      <line x1="150" y1="150" x2="130" y2="180" />
-      <line x1="150" y1="150" x2="170" y2="180" />
+      <line v-if="showLine(5)" x1="150" y1="150" x2="130" y2="180" />
+      <line v-if="showLine(5)" x1="150" y1="150" x2="170" y2="180" />
     </svg>
   </div>
 </template>

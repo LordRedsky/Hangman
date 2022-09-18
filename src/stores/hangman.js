@@ -34,6 +34,7 @@ export const useHangmanStore = defineStore({
       successCount: 0,
       chosenWord: '',
       username: '',
+      isHangmanShow: false,
     }
   ),
 
