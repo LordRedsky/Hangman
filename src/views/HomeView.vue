@@ -91,21 +91,22 @@ main {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 90%;
+  /* height: 90%; */
   border-radius: 10px;
-  background-color: radial-gradient(#156f99, #0a2e50);
+
 }
 
 .table {
-  margin: 80px auto;
+  margin: 50px auto;
   background: radial-gradient(#156f99, #0a2e50);
-  width: 70%;
-  height: 90vh;
+  width: 80%;
+  height: 100%;
   padding: 2em;
   border-radius: 40px;
 }
 
 button {
+  border: none;
   background-color: #fed945;
   padding: 0.5em;
   border-radius: 30%;
@@ -141,10 +142,11 @@ button {
     justify-content: center;
     height: 100vh;
     border-radius: 10px;
-    background-color: radial-gradient(#156f99, #0a2e50);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2), 0 10px 10px rgba(0, 0, 0, 0.2);
   }
 
   button {
+    border: none;
     background-color: #fed945;
     padding: 0.5em;
     border-radius: 30%;

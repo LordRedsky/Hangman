@@ -142,14 +142,12 @@ export default {
       <HangmanFigure class="figure" />
 
       <div class="letter consonants">
-        <!-- <div v-for="(consonant, i) of consonants" :key="i" class="letter__consonant"> -->
         <CardLetter
           v-for="(consonant, i) of consonants"
           :key="i"
           @click="checkTrueOrFalse(consonant)"
           :data="consonant"
         />
-        <!-- </div> -->
       </div>
     </article>
   </div>
