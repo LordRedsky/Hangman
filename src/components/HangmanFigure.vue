@@ -21,7 +21,7 @@ export default {
 </script>
 
 <template>
-  <div>
+  <div class="container">
     <svg height="250" width="200" class="figure-container">
       <!-- Gallows -->
       <line x1="60" y1="20" x2="170" y2="20" />
@@ -51,8 +51,18 @@ export default {
 <style scoped>
 .figure-container {
   fill: transparent;
-  stroke: #fff;
-  stroke-width: 5px;
+  stroke: whitesmoke;
+  stroke-width: 7px;
   stroke-linecap: round;
+  border-radius: 20%;
+  padding: 1em;
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2), 0 10px 10px rgba(0, 0, 0, 0.2);
+}
+
+@media (min-width: 1024px) {
+  .figure-container {
+    stroke-width: 10px;
+    padding: 7em;
+  }
 }
 </style>

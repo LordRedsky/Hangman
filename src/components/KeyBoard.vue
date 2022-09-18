@@ -141,11 +141,13 @@ export default {
 
 <template>
   <div class="container">
-    <div class="blind">
-      <div v-for="(char, i) of data" :key="i" class="blind__cards">
-        <CardBlind :data="char" />
-      </div>
+
+  <div class="blind">
+    <div v-for="(char, i) of data" :key="i" class="blind__cards">
+      <CardBlind :data="char" />
     </div>
+  </div>
+
     <article>
       <div class="letter">
         <div v-for="(vocal, i) of vocals" :key="i" class="letter__vocal">
@@ -186,12 +188,11 @@ article {
 }
 
 .blind {
-  /* position: absolute; */
   grid-area: blindCard;
 
   display: flex;
   justify-content: center;
-  gap: 2px;
+  gap: 3px;
   width: 300px ;
 }
 .letter {
@@ -200,7 +201,7 @@ article {
   flex-direction: row;
   justify-content: center;
   gap: 5px;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
   /* flex */
 }
 
@@ -210,7 +211,7 @@ article {
   flex-direction: row;
   justify-content: center;
   flex-wrap: wrap;
-  width: 350px;
+  width: 300px;
 }
 
 .figure {
@@ -218,27 +219,24 @@ article {
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 40px;
+  margin-bottom: 60px;
+  margin-top: 20px;
 }
 
 @media (min-width: 1024px) {
-  .container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
 
   article {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    gap: 180px;
+    width: 100%;
+    height: 100%;
   }
 
   .blind {
     display: flex;
     justify-content: center;
-    gap: 5px;
+    gap: 10px;
   }
 
   .letter {
@@ -252,7 +250,7 @@ article {
     flex-direction: row;
     justify-content: center;
     flex-wrap: wrap;
-    max-width: 200px;
+    max-width: 600px;
     gap: 10px;
   }
 
@@ -261,7 +259,6 @@ article {
     align-items: center;
     justify-content: center;
     margin-bottom: 40px;
-    background-color: red;
   }
 }
 </style>

@@ -15,7 +15,7 @@ export default {
   methods: {
     ...mapActions(useHangmanStore, ["generateWord"]),
     loginButtonHandler() {
-    //   console.log(inputValue);
+      //   console.log(inputValue);
       localStorage.setItem("username", this.inputValue);
       this.generateWord();
       this.username = this.inputValue;
@@ -27,8 +27,8 @@ export default {
 </script>
 
 <template>
-  <Header />
   <div class="wellcome-container input">
+    <Header />
     <form @submit.prevent="loginButtonHandler" class="input">
       <input v-model="inputValue" type="text" placeholder="Input your user name" />
       <button>Mulai</button>
@@ -41,6 +41,7 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
+  background-color: red;
 }
 
 .input {
