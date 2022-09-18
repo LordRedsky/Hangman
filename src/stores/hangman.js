@@ -57,7 +57,5 @@ export const useHangmanStore = defineStore({
       const newArr = newWord.map((el) => (el = ""));
       this.data = newArr;
     },
-
-
   }
 })

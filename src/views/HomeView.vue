@@ -13,13 +13,45 @@ export default {
   methods: {
     ...mapActions(useHangmanStore, ["playAgain"]),
     logoutButtonHandler() {
-      this.wrongCount = 0;
-      localStorage.clear();
-      this.$router.push({ path: "/" });
+      const name = localStorage.getItem("username");
+      Swal.fire({
+        title: "Are you sure?",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          let timerInterval;
+          Swal.fire({
+            title: `See you ${name}`,
+            timer: 1000,
+            timerProgressBar: true,
+            didOpen: () => {
+              Swal.showLoading();
+              const b = Swal.getHtmlContainer().querySelector("b");
+              timerInterval = setInterval(() => {
+                b.textContent = Swal.getTimerLeft();
+              }, 100);
+            },
+            willClose: () => {
+              clearInterval(timerInterval);
+              this.wrongCount = 0;
+              localStorage.clear();
+              this.$router.push({ path: "/" });
+            },
+          }).then((result) => {
+            if (result.dismiss === Swal.DismissReason.timer) {
+              console.log("I was closed by the timer");
+            }
+          });
+        }
+      });
     },
 
     refreshButtonHandler() {
-      this.playAgain()
+      this.playAgain();
     },
   },
 

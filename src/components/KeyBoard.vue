@@ -11,12 +11,9 @@ export default {
   components: { CardBlind, CardLetter, HangmanFigure },
   data: () => {
     return {
-      // data: [],
-      // correctWord: [],
       wrongWord: [],
       selectLetter: "",
       isPlayAgain: false,
-      // count: 1,
     };
   },
   computed: {
@@ -101,7 +98,7 @@ export default {
         });
       }
     },
-    
+
     checkTrueOrFalse(input) {
       this.selectLetter = input;
       this.changeArray();

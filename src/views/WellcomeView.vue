@@ -2,6 +2,7 @@
 import { mapActions, mapWritableState } from "pinia";
 import { useHangmanStore } from "../stores/hangman";
 import Header from "../components/Header.vue";
+import Swal from "sweetalert2/dist/sweetalert2.js";
 
 export default {
   name: "WellcomePage",
@@ -15,12 +16,20 @@ export default {
   methods: {
     ...mapActions(useHangmanStore, ["generateWord"]),
     loginButtonHandler() {
-      //   console.log(inputValue);
-      localStorage.setItem("username", this.inputValue);
-      this.generateWord();
-      this.username = this.inputValue;
-      this.inputValue = "";
-      this.$router.push({ path: "/play" });
+      console.log(this.inputValue);
+      if (!this.inputValue) {
+        Swal.fire({
+          icon: "error",
+          title: `Please input your username`,
+          showConfirmButton: true,
+        });
+      } else {
+        localStorage.setItem("username", this.inputValue);
+        this.generateWord();
+        this.username = this.inputValue;
+        this.inputValue = "";
+        this.$router.push({ path: "/play" });
+      }
     },
   },
 };
@@ -30,8 +39,12 @@ export default {
   <div class="wellcome-container">
     <div class="input">
       <Header />
-      <form @submit.prevent="loginButtonHandler" class="input">
-        <input v-model="inputValue" type="text" placeholder="Input your username" />
+      <form @submit.prevent="loginButtonHandler" class="input" autocomplete="off">
+        <input
+          v-model="inputValue"
+          type="text"
+          placeholder="Input your username"
+        />
         <button>Play</button>
       </form>
     </div>
@@ -43,7 +56,6 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-  /* background-color: red; */
   height: 100vh;
 }
 
@@ -60,7 +72,7 @@ input {
   padding: 1rem;
   border-radius: 20px;
   color: red;
-  border: 1px solid #7e0101;;
+  border: 1px solid #7e0101;
 
   font-size: 20px;
   text-align: center;
@@ -85,44 +97,4 @@ button {
   font-size: 20px;
   font-weight: 900;
 }
-
-/* @media (min-width: 1024px) {
-  .wellcome-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: red;
-    background-color: radial-gradient(#156f99, #0a2e50);
-  }
-
-  .input {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 20px;
-  }
-
-  input {
-    padding: 1rem;
-    border-radius: 20px;
-    color: red;
-
-    font-size: 20px;
-    text-align: center;
-  }
-
-  input::placeholder {
-    color: red;
-    text-align: center;
-  }
-
-  button {
-    padding: 0.5em;
-    border-radius: 10px;
-    border: 1px solid salmon;
-
-    font-size: 20px;
-  }
-} */
 </style>
