@@ -6,15 +6,11 @@ export default {
 </script>
 
 <template>
-  <!-- Set Card -->
-  <!-- <article> -->
   <div class="card-wrapper">
     <div class="card">
       <span>{{ data.toUpperCase() }}</span>
-      <!-- <span></span> -->
     </div>
   </div>
-  <!-- </article> -->
 </template>
 
 <style scoped>
@@ -33,12 +29,10 @@ export default {
   box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2), 0 10px 10px rgba(0, 0, 0, 0.2);
 }
 .card {
-  /* width: 100%; */
   display: flex;
   align-items: center;
   justify-content: center;
   background-color: #fed945;
-  /* background-color: #fff; */
   width: 15px;
   height: 15px;
   border-radius: 5px;

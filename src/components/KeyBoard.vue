@@ -11,8 +11,8 @@ export default {
   components: { CardBlind, CardLetter, HangmanFigure },
   data: () => {
     return {
-      data: [],
-      correctWord: [],
+      // data: [],
+      // correctWord: [],
       wrongWord: [],
       selectLetter: "",
       isPlayAgain: false,
@@ -27,10 +27,13 @@ export default {
       "chosenWord",
       "wrongCount",
       "isHangmanShow",
+      "data",
+      "wrongCount",
+      "correctWord",
     ]),
   },
   methods: {
-    ...mapActions(useHangmanStore, ["generateWord"]),
+    ...mapActions(useHangmanStore, ["generateWord", "playAgain"]),
     changeArray() {
       const letter = localStorage.getItem("chosenWord").split("");
       const username = localStorage.getItem("username");
@@ -41,7 +44,6 @@ export default {
         if (check) {
           if (!this.correctWord.includes(this.selectLetter)) {
             this.correctWord.push(this.selectLetter);
-            console.log(this.correctWord, "correct");
             this.selectLetter = "";
           }
 
@@ -99,22 +101,8 @@ export default {
         });
       }
     },
-
-    playAgain() {
-      this.wrongCount = 0;
-      this.correctWord = [];
-      this.data = [];
-      this.$router.push({ path: "/play" });
-      const newWord = localStorage.getItem("chosenWord").split("");
-      const newArr = newWord.map((el) => (el = ""));
-      this.data = newArr;
-    },
-
+    
     checkTrueOrFalse(input) {
-      console.log("kik");
-      // const card = document.getElementById("card-wrapper");
-      // card.classList.add("hidden");
-
       this.selectLetter = input;
       this.changeArray();
 
@@ -141,12 +129,11 @@ export default {
 
 <template>
   <div class="container">
-
-  <div class="blind">
-    <div v-for="(char, i) of data" :key="i" class="blind__cards">
-      <CardBlind :data="char" />
+    <div class="blind">
+      <div v-for="(char, i) of data" :key="i" class="blind__cards">
+        <CardBlind :data="char" />
+      </div>
     </div>
-  </div>
 
     <article>
       <div class="letter">
@@ -189,11 +176,10 @@ article {
 
 .blind {
   grid-area: blindCard;
-
   display: flex;
   justify-content: center;
   gap: 3px;
-  width: 300px ;
+  width: 300px;
 }
 .letter {
   grid-area: vocal;
@@ -202,7 +188,6 @@ article {
   justify-content: center;
   gap: 5px;
   margin-bottom: 10px;
-  /* flex */
 }
 
 .consonants {
@@ -224,7 +209,6 @@ article {
 }
 
 @media (min-width: 1024px) {
-
   article {
     display: flex;
     justify-content: space-between;
@@ -234,6 +218,8 @@ article {
   }
 
   .blind {
+    margin-top: -50px;
+    margin-bottom: 20px;
     display: flex;
     justify-content: center;
     gap: 10px;
@@ -252,6 +238,7 @@ article {
     flex-wrap: wrap;
     max-width: 600px;
     gap: 10px;
+    margin-right: -25px;
   }
 
   .figure {

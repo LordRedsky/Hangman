@@ -35,6 +35,9 @@ export const useHangmanStore = defineStore({
       chosenWord: '',
       username: '',
       isHangmanShow: false,
+      data: [],
+      wrongCount: 0,
+      correctWord: []
     }
   ),
 
@@ -43,6 +46,18 @@ export const useHangmanStore = defineStore({
       const index = Math.floor(Math.random() * this.words.length)
       this.chosenWord = this.words[index].name
       localStorage.setItem('chosenWord', this.chosenWord)
-    }
+    },
+
+    playAgain() {
+      this.wrongCount = 0;
+      this.correctWord = [];
+      this.data = [];
+      this.generateWord()
+      const newWord = localStorage.getItem("chosenWord").split("");
+      const newArr = newWord.map((el) => (el = ""));
+      this.data = newArr;
+    },
+
+
   }
 })

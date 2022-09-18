@@ -27,12 +27,14 @@ export default {
 </script>
 
 <template>
-  <div class="wellcome-container input">
-    <Header />
-    <form @submit.prevent="loginButtonHandler" class="input">
-      <input v-model="inputValue" type="text" placeholder="Input your user name" />
-      <button>Mulai</button>
-    </form>
+  <div class="wellcome-container">
+    <div class="input">
+      <Header />
+      <form @submit.prevent="loginButtonHandler" class="input">
+        <input v-model="inputValue" type="text" placeholder="Input your username" />
+        <button>Play</button>
+      </form>
+    </div>
   </div>
 </template>
 
@@ -41,7 +43,8 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: red;
+  /* background-color: red; */
+  height: 100vh;
 }
 
 .input {
@@ -50,27 +53,76 @@ export default {
   align-items: center;
   justify-content: center;
   gap: 20px;
+  background-color: radial-gradient(#156f99, #0a2e50);
 }
 
 input {
   padding: 1rem;
   border-radius: 20px;
   color: red;
+  border: 1px solid #7e0101;;
 
   font-size: 20px;
   text-align: center;
+  box-shadow: 0 15px 50px rgba(0, 0, 0, 0.2), 0 10px 10px rgba(0, 0, 0, 0.2);
 }
 
 input::placeholder {
-  color: red;
+  color: #7e0101;
   text-align: center;
+
+  font-weight: 500;
 }
 
 button {
-  padding: 0.5em;
+  padding: 0.8em;
   border-radius: 10px;
-  border: 1px solid salmon;
+  border: none;
+  background-color: #fed945;
+  color: #7e0101;
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2), 0 10px 10px rgba(0, 0, 0, 0.2);
 
   font-size: 20px;
+  font-weight: 900;
 }
+
+/* @media (min-width: 1024px) {
+  .wellcome-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: red;
+    background-color: radial-gradient(#156f99, #0a2e50);
+  }
+
+  .input {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+  }
+
+  input {
+    padding: 1rem;
+    border-radius: 20px;
+    color: red;
+
+    font-size: 20px;
+    text-align: center;
+  }
+
+  input::placeholder {
+    color: red;
+    text-align: center;
+  }
+
+  button {
+    padding: 0.5em;
+    border-radius: 10px;
+    border: 1px solid salmon;
+
+    font-size: 20px;
+  }
+} */
 </style>
