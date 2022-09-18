@@ -37,7 +37,7 @@ export default {
     <Header />
     <div class="table">
       <button @click.prevent="logoutButtonHandler">
-        <fa class="power-off" icon="fa-solid fa-power-off" />
+        <fa class="power-off" icon="fa-solid fa-right-from-bracket" />
       </button>
       <KeyBoard class="table-game" />
     </div>
@@ -78,12 +78,12 @@ main {
 button {
   position: relative;
   padding: 10px;
-  border-radius: 50%;
+  border-radius: 30%;
   border: none;
-  left: 0;
 }
 
 .power-off {
+  position: relative;
   color: red;
   height: 30px;
 }

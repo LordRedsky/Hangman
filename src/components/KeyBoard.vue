@@ -112,8 +112,8 @@ export default {
 
     checkTrueOrFalse(input) {
       console.log("kik");
-      const card = document.getElementById("card-wrapper");
-      card.classList.add("hidden");
+      // const card = document.getElementById("card-wrapper");
+      // card.classList.add("hidden");
 
       this.selectLetter = input;
       this.changeArray();
@@ -191,14 +191,15 @@ article {
 
   display: flex;
   justify-content: center;
-  gap: 5px;
+  gap: 2px;
+  width: 300px ;
 }
 .letter {
   grid-area: vocal;
   display: flex;
   flex-direction: row;
   justify-content: center;
-  gap: 10px;
+  gap: 5px;
   margin-bottom: 20px;
   /* flex */
 }
@@ -209,7 +210,7 @@ article {
   flex-direction: row;
   justify-content: center;
   flex-wrap: wrap;
-  width: 410px;
+  width: 350px;
 }
 
 .figure {
