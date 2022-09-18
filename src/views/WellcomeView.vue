@@ -14,9 +14,9 @@ export default {
   },
   methods: {
     ...mapActions(useHangmanStore, ["generateWord"]),
-    searchHandle() {
+    loginButtonHandler() {
     //   console.log(inputValue);
-    //   localStorage.setItem("username", this.inputValue);
+      localStorage.setItem("username", this.inputValue);
       this.generateWord();
       this.username = this.inputValue;
       this.inputValue = "";
@@ -29,7 +29,7 @@ export default {
 <template>
   <Header />
   <div class="wellcome-container input">
-    <form @submit.prevent="searchHandle" class="input">
+    <form @submit.prevent="loginButtonHandler" class="input">
       <input v-model="inputValue" type="text" placeholder="Input your user name" />
       <button>Mulai</button>
     </form>

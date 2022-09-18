@@ -7,10 +7,9 @@ export default {
 
 <template>
   <!-- Set Card -->
-  <div class="card-wrapper">
+  <div class="card-wrapper" id="card-wrapper">
     <div class="card">
-      <span>{{data.toUpperCase()}}</span>
-      <!-- <span >{{ data.toUpperCase() }}</span> -->
+      <span>{{ data.toUpperCase() }}</span>
     </div>
   </div>
 </template>
@@ -29,6 +28,11 @@ export default {
   background-color: #cccccc;
   cursor: pointer;
 }
+
+.hidden {
+  opacity: 0;
+}
+
 .card {
   /* width: 100%; */
   display: flex;

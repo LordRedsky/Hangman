@@ -30,6 +30,7 @@ export default {
   border-radius: 10px;
   background-color: #fed945;
   cursor: pointer;
+  margin-bottom: 30px;
 }
 .card {
   /* width: 100%; */
@@ -47,4 +48,7 @@ export default {
   font-size: 1.5rem;
   font-weight: 900;
 }
+
+
+
 </style>

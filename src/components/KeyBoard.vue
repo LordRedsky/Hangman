@@ -32,11 +32,8 @@ export default {
   methods: {
     ...mapActions(useHangmanStore, ["generateWord"]),
     changeArray() {
-      let count = 0;
-
-      console.log(this.wrongCount);
-
       const letter = localStorage.getItem("chosenWord").split("");
+      const username = localStorage.getItem("username");
 
       if (this.wrongCount !== 4) {
         const letter = localStorage.getItem("chosenWord").split("");
@@ -62,7 +59,7 @@ export default {
 
           if (this.data.join("") === letter.join("")) {
             Swal.fire({
-              title: "Congratulation!",
+              title: `Congratulation ${username}!`,
               text: "You win this game",
               icon: "success",
               showCancelButton: true,
@@ -77,14 +74,12 @@ export default {
             });
           }
         } else {
-          console.log("salah");
           this.wrongWord.push(this.selectLetter);
           this.selectLetter = "";
           this.wrongCount++;
           this.isHangmanShow = true;
         }
       } else if (this.wrongCount === 4) {
-        console.log("kalaaahh");
         this.wrongCount++;
         Swal.fire({
           title: "You Lose",
@@ -95,7 +90,6 @@ export default {
           confirmButtonText: "Try again?",
         }).then((result) => {
           if (result.isConfirmed) {
-            console.log("masuk");
             this.wrongCount = 0;
             this.correctWord = [];
             this.changeArray();
@@ -117,7 +111,10 @@ export default {
     },
 
     checkTrueOrFalse(input) {
-      console.log(input);
+      console.log("kik");
+      const card = document.getElementById("card-wrapper");
+      card.classList.add("hidden");
+
       this.selectLetter = input;
       this.changeArray();
 
@@ -133,7 +130,6 @@ export default {
   created() {
     this.correctWord = [];
     const letter = localStorage.getItem("chosenWord").split("");
-    console.log(letter);
 
     if (this.correctWord.length === 0) {
       const newArr = letter.map((el) => (el = ""));
@@ -144,7 +140,7 @@ export default {
 </script>
 
 <template>
-  <div>
+  <div class="container">
     <div class="blind">
       <div v-for="(char, i) of data" :key="i" class="blind__cards">
         <CardBlind :data="char" />
@@ -157,50 +153,114 @@ export default {
         </div>
       </div>
 
-      <HangmanFigure />
+      <HangmanFigure class="figure" />
 
       <div class="letter consonants">
-        <div v-for="(consonant, i) of consonants" :key="i" class="letter__consonant">
-          <CardLetter @click="checkTrueOrFalse(consonant)" :data="consonant" />
-        </div>
+        <!-- <div v-for="(consonant, i) of consonants" :key="i" class="letter__consonant"> -->
+        <CardLetter
+          v-for="(consonant, i) of consonants"
+          :key="i"
+          @click="checkTrueOrFalse(consonant)"
+          :data="consonant"
+        />
+        <!-- </div> -->
       </div>
     </article>
   </div>
 </template>
 
 <style scoped>
-article {
+.container {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
-  /* background-color: red; */
+  flex-direction: column;
+}
+
+article {
+  display: grid;
+  box-sizing: border-box;
+  grid-template-areas: "blindCard" "hangmanFigure" "vocal" "consonant";
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr;
 }
 
 .blind {
   /* position: absolute; */
+  grid-area: blindCard;
+
   display: flex;
   justify-content: center;
   gap: 5px;
-  /* align-items: flex-end; */
 }
 .letter {
+  grid-area: vocal;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  justify-content: center;
   gap: 10px;
+  margin-bottom: 20px;
   /* flex */
-}
-.letter__vocal {
-  /* background-color: red; */
-  display: flex;
-  flex-direction: column;
 }
 
 .consonants {
+  grid-area: consonant;
   display: flex;
   flex-direction: row;
   justify-content: center;
   flex-wrap: wrap;
-  width: 200px;
-  gap: 10px;
+  width: 410px;
+}
+
+.figure {
+  grid-area: hangmanFigure;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 40px;
+}
+
+@media (min-width: 1024px) {
+  .container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  article {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 180px;
+  }
+
+  .blind {
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+  }
+
+  .letter {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .consonants {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
+    max-width: 200px;
+    gap: 10px;
+  }
+
+  .figure {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 40px;
+    background-color: red;
+  }
 }
 </style>

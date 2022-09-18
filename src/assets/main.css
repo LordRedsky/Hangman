@@ -6,12 +6,15 @@
 #app {
   max-width: 1580px;
   width: 1300px;
-  height: 50%;
+  height: 80vh;
   /* margin: 0 auto; */
   padding: 3rem;
 
   font-weight: normal;
   background-color: red;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   border-radius: 20px;
 }
 
@@ -36,7 +39,8 @@
 
   #app {
     display: grid;
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
+    background-color: blue;
     padding: 0 2rem;
   }
 }
